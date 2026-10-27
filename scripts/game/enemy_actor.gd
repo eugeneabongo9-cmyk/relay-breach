@@ -75,7 +75,17 @@ func tick(dt: float) -> void:
 	else:
 		velocity = velocity.move_toward(Vector3.ZERO, 40.0 * dt)
 	velocity.y = 0.0
-	move_and_slide()
+	var motion := velocity * dt
+	for _step in 4:
+		if motion.length() < 0.0001:
+			break
+		var hit := move_and_collide(motion)
+		if hit == null:
+			break
+		var normal := hit.get_normal()
+		motion = hit.get_remainder().slide(normal)
+		velocity = velocity.slide(normal)
+		velocity.y = 0.0
 	last_pos = global_position
 	if brain.state == "attack" and prev_state != "attack":
 		_on_attack_begin()

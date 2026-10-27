@@ -177,17 +177,23 @@ func _scene() -> void:
 	_ok(main.cam != null, "camera exists")
 	main.start_run(4)
 	_game.set_qa_codes(["KeyW"])
-	for _i in 45:
+	for _i in 20:
 		main._sim(1.0 / 60.0)
 	_ok(_game.probe_speed() > 0.4, "W moves the engineer")
+	# Park in open floor. A long W hold from the spawn walks into the west wall
+	# and the slide changes heading, which is not what this check measures.
+	main.player.global_position = Vector3(13, 0, 13)
+	main.player.velocity = Vector3.ZERO
 	var yaw_before: float = _game.probe_yaw()
 	_game.set_qa_codes(["KeyW", "KeyA"])
-	for _i in 25:
+	for _i in 12:
 		main._sim(1.0 / 60.0)
 	_ok(_wrap(_game.probe_yaw() - yaw_before) > 0.05, "held A strafes screen-left")
+	main.player.global_position = Vector3(13, 0, 13)
+	main.player.velocity = Vector3.ZERO
 	yaw_before = _game.probe_yaw()
 	_game.set_qa_codes(["KeyW", "KeyD"])
-	for _i in 25:
+	for _i in 12:
 		main._sim(1.0 / 60.0)
 	_ok(_wrap(_game.probe_yaw() - yaw_before) < -0.05, "held D strafes screen-right")
 	_game.clear_qa()
@@ -207,7 +213,7 @@ func _scene() -> void:
 	for _i in 50:
 		main._sim(1.0 / 60.0)
 	_ok(main.door_open, "door opens by holding the link")
-	_drive(main, main.exit_pos, 520)
+	_drive(main, main.exit_pos, 240)
 	var advanced: bool = int(main.room_index) >= 1 or str(main.mode) == "upgrade"
 	_ok(advanced, "tutorial exit enters the run (idx %s mode %s)" % [str(main.room_index), str(main.mode)])
 

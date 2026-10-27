@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Fix the Actions workflow. GitHub rejected the first file as invalid YAML (run 40578775847) before any job started. The install step no longer uses a glob.
+- Step the player and enemies with the tick delta. `move_and_slide` follows the engine frame delta, so a tight headless loop did not cross the tutorial bay.
+- Add a screenshot of the tutorial bay from the web build.
+
 ## 0.9.0
 
 - First playable slice: tutorial, four encounters, finale, three upgrades.

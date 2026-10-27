@@ -20,7 +20,11 @@ jobs:
           curl -fsSL -o "$RUNNER_TEMP/godot/godot.zip" \
             https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
           unzip -q "$RUNNER_TEMP/godot/godot.zip" -d "$RUNNER_TEMP/godot"
-          GODOT="$(find "$RUNNER_TEMP/godot" -type f -name 'Godot*' | head -1)"
+          GODOT="$RUNNER_TEMP/godot/Godot_v4.7.2-stable_linux.x86_64"
+          if [ ! -f "$GODOT" ]; then
+            GODOT=$(find "$RUNNER_TEMP/godot" -type f -name "Godot_v4.7.2-stable_linux.x86_64" | head -n 1)
+          fi
+          test -f "$GODOT"
           chmod +x "$GODOT"
           echo "GODOT=$GODOT" >> "$GITHUB_ENV"
           "$GODOT" --version
@@ -45,7 +49,11 @@ jobs:
           curl -fsSL -o "$RUNNER_TEMP/godot/godot.zip" \
             https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
           unzip -q "$RUNNER_TEMP/godot/godot.zip" -d "$RUNNER_TEMP/godot"
-          GODOT="$(find "$RUNNER_TEMP/godot" -type f -name 'Godot*' | head -1)"
+          GODOT="$RUNNER_TEMP/godot/Godot_v4.7.2-stable_linux.x86_64"
+          if [ ! -f "$GODOT" ]; then
+            GODOT=$(find "$RUNNER_TEMP/godot" -type f -name "Godot_v4.7.2-stable_linux.x86_64" | head -n 1)
+          fi
+          test -f "$GODOT"
           chmod +x "$GODOT"
           echo "GODOT=$GODOT" >> "$GITHUB_ENV"
           curl -fsSL -o "$RUNNER_TEMP/templates.tpz" \

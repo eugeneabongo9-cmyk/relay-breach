@@ -81,7 +81,9 @@ func tick(dt: float) -> void:
 		flat = flat.move_toward(wish * move_speed, rate * dt)
 		velocity = flat
 	velocity.y = 0.0
-	move_and_slide()
+	# move_and_slide travels by the engine physics delta, not this dt.
+	# A headless tick loop would then depend on wall-clock frame time.
+	_slide(dt)
 	if visual != null and facing.length() > 0.1:
 		visual.look_at(visual.global_position + Vector3(facing.x, 0.0, facing.z), Vector3.UP)
 		var pulse := 1.0 + (0.18 if iframe_left > 0.0 else 0.0)
@@ -97,3 +99,17 @@ func hurt(amount: float) -> bool:
 		if session != null:
 			session.call("on_player_hurt")
 	return bool(result["hit"])
+
+
+func _slide(dt: float) -> void:
+	var motion := velocity * dt
+	for _step in 4:
+		if motion.length() < 0.0001:
+			return
+		var hit := move_and_collide(motion)
+		if hit == null:
+			return
+		var normal := hit.get_normal()
+		motion = hit.get_remainder().slide(normal)
+		velocity = velocity.slide(normal)
+		velocity.y = 0.0

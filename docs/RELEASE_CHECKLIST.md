@@ -6,6 +6,7 @@ Status from the session that produced 0.9.0. Evidence is a command or a file, no
 | --- | --- | --- |
 | Clean import | PASS | `godot --headless --path . --import --quit` |
 | Headless tests | PASS | `tests/run_tests.gd` → `RESULT passed=364 failed=0` |
+| Actions workflow file | FAIL, then corrected | Run [40578775847](https://github.com/eugeneabongo9-cmyk/relay-breach/actions/runs/40578775847) rejected `ci.yml` as invalid YAML on line 26 before any job. The glob in the install step was removed. The corrected run is not green until GitHub reports it. |
 | Web export | PASS (file exists) | `build/web/index.html`, threads off |
 | Linux export | PASS (file exists) | `build/linux/relay-breach.x86_64` |
 | Linux binary played on a desktop | UNVERIFIED | No display was used to play the packaged binary |

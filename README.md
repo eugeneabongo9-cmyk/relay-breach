@@ -2,6 +2,8 @@
 
 Isometric action in a failing orbital power station. You get one active energy tether. The same link drops a shield, arms a hazard coil, jams a medic, opens a door, or charges the extract.
 
+![Tutorial bay. WASD moves, click two endpoints to tether.](docs/media/tutorial-bay.png)
+
 This is a playable vertical slice (about 5–10 minutes), not a finished commercial game. Version **0.9.0**. Desktop frame rate on reference hardware is **UNVERIFIED**.
 
 ## Play
@@ -50,7 +52,7 @@ Local equivalent of CI:
 sh tools/check.sh
 ```
 
-A headless stress yard of 24 pursuers measured **median 175 µs, p95 227 µs, p99 348 µs** per logic tick on the build machine (120 ticks, Godot 4.7.2 headless). That is not a 1080p frame-time measurement. See [docs/performance.md](docs/performance.md).
+A headless stress yard of 24 pursuers measured **median 173 µs, p95 210 µs, p99 285 µs** per logic tick on the build machine (120 ticks, Godot 4.7.2 headless). That is not a 1080p frame-time measurement. See [docs/performance.md](docs/performance.md).
 
 Release exports (local, this session):
 
@@ -68,3 +70,7 @@ Code in this repository: MIT. See [LICENSE](LICENSE). Godot is MIT. Art and audi
 ## Limits
 
 No claim of 60 fps, controller certification, or a finished balance pass. Debug overlay (F3), room restart (F4), stress yard (F6), and the clipboard report (F8) exist only in debug builds.
+
+## Contributing
+
+Enemy, room, and tether numbers live in [data/content.json](data/content.json). Run `sh tools/check.sh` with Godot 4.7.2 before sending a change. Do not commit `.godot/` or `build/`.
