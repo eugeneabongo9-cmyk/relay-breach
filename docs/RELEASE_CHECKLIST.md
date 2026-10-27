@@ -19,10 +19,13 @@ Status from the session that produced 0.9.0. Evidence is a command or a file, no
 Checksums of the local export (sha256):
 
 ```text
+4574fc0746e2dfa0cd4501b7478e494bc6c1a8bf7d83ea55965a128ccb185d73  linux/relay-breach.x86_64
+bca2c745fa7a195d8d191abc1382feb5af28de7af27883b814a1527ed0d74574  web/index.pck
 fc74679e3b97f76878947fcd4fbe1268cbfa6188182a2e33bbc3f5dc9bfa57d0  web/index.wasm
-247fa3fd858d6b59daedb175493c868b7b81d1b8ebdfff8f9c8713f7349a08be  web/index.pck
 33c94cb3175f3333b82e2a3be5e8e86f77986f0aa2042b1631f6367a4e5bb6ba  web/index.js
-cd76b07979073e60e80740e1e2d9fad45cd5406e9bd30bc74cc0e995ad3abada  linux/relay-breach.x86_64
+208e20c3d72fea999bbfae441bda9faf3b4e32081e1b6eb8a1c54e8cde2716d5  web/index.html
 ```
+
+Those files are attached to [v0.9.0](https://github.com/eugeneabongo9-cmyk/relay-breach/releases/tag/v0.9.0), exported from commit 9882931. wasm and js match the earlier export. The pck and the Linux binary changed after movement stepped by the tick delta.
 
 Do not treat a green headless run as a graphical playtest.

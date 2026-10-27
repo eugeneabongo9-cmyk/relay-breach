@@ -12,6 +12,8 @@ Keyboard: **WASD** camera-relative strafe (A is screen-left, D is screen-right),
 
 Objective: finish the bay tutorial, clear four encounters (order changes with the seed), pick upgrades, then hold **reactor → extract** until the extract locks.
 
+Pre-release builds (Linux x86_64 and a web zip), not a 1.0: [v0.9.0](https://github.com/eugeneabongo9-cmyk/relay-breach/releases/tag/v0.9.0). The Linux binary was not played on a desktop GPU. Host the web zip yourself. Threads are off.
+
 ## Engine
 
 Godot **4.7.2.stable.official.ed1daf0bf**  
