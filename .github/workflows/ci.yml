@@ -13,60 +13,13 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-      - name: Install Godot 4.7.2
-        run: |
-          set -euo pipefail
-          mkdir -p "$RUNNER_TEMP/godot"
-          curl -fsSL -o "$RUNNER_TEMP/godot/godot.zip" \
-            https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
-          unzip -q "$RUNNER_TEMP/godot/godot.zip" -d "$RUNNER_TEMP/godot"
-          GODOT="$RUNNER_TEMP/godot/Godot_v4.7.2-stable_linux.x86_64"
-          if [ ! -f "$GODOT" ]; then
-            GODOT=$(find "$RUNNER_TEMP/godot" -type f -name "Godot_v4.7.2-stable_linux.x86_64" | head -n 1)
-          fi
-          test -f "$GODOT"
-          chmod +x "$GODOT"
-          echo "GODOT=$GODOT" >> "$GITHUB_ENV"
-          "$GODOT" --version
-      - name: Import
-        run: "$GODOT" --headless --path . --import --quit
-      - name: Tests
-        run: |
-          set -euo pipefail
-          set -o pipefail
-          "$GODOT" --headless --path . -s res://tests/run_tests.gd | tee "$RUNNER_TEMP/tests.txt"
-          grep -q "failed=0" "$RUNNER_TEMP/tests.txt"
+      - name: Import and test
+        run: bash tools/ci_test.sh
 
   export-web:
     runs-on: ubuntu-24.04
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
-      - name: Install Godot 4.7.2 and web templates
-        run: |
-          set -euo pipefail
-          mkdir -p "$RUNNER_TEMP/godot" "$HOME/.local/share/godot/export_templates/4.7.2.stable"
-          curl -fsSL -o "$RUNNER_TEMP/godot/godot.zip" \
-            https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_linux.x86_64.zip
-          unzip -q "$RUNNER_TEMP/godot/godot.zip" -d "$RUNNER_TEMP/godot"
-          GODOT="$RUNNER_TEMP/godot/Godot_v4.7.2-stable_linux.x86_64"
-          if [ ! -f "$GODOT" ]; then
-            GODOT=$(find "$RUNNER_TEMP/godot" -type f -name "Godot_v4.7.2-stable_linux.x86_64" | head -n 1)
-          fi
-          test -f "$GODOT"
-          chmod +x "$GODOT"
-          echo "GODOT=$GODOT" >> "$GITHUB_ENV"
-          curl -fsSL -o "$RUNNER_TEMP/templates.tpz" \
-            https://github.com/godotengine/godot-builds/releases/download/4.7.2-stable/Godot_v4.7.2-stable_export_templates.tpz
-          unzip -qo "$RUNNER_TEMP/templates.tpz" -d "$RUNNER_TEMP/tpl" \
-            templates/version.txt \
-            templates/web_nothreads_release.zip \
-            templates/web_nothreads_debug.zip
-          cp -a "$RUNNER_TEMP/tpl/templates/." "$HOME/.local/share/godot/export_templates/4.7.2.stable/"
       - name: Export web
-        run: |
-          set -euo pipefail
-          mkdir -p build/web
-          "$GODOT" --headless --path . --export-release "Web" "$PWD/build/web/index.html"
-          test -f build/web/index.wasm
-          test -f build/web/index.pck
+        run: bash tools/ci_export_web.sh

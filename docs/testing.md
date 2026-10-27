@@ -5,7 +5,7 @@ godot --headless --path . --import --quit
 godot --headless --path . -s res://tests/run_tests.gd
 ```
 
-`tests/run_tests.gd` exits 1 on failure. Godot sometimes still returns 0 when a script fails to parse, so CI also requires the line `RESULT passed=… failed=0`.
+`tests/run_tests.gd` exits 1 on failure. Godot sometimes still returns 0 when a script fails to parse, so CI also requires the line `RESULT passed=… failed=0`. GitHub runs [tools/ci_test.sh](../tools/ci_test.sh) and [tools/ci_export_web.sh](../tools/ci_export_web.sh). The shell stays out of the workflow file because the Actions parser rejected quoted lines inside `run`.
 
 Covered:
 
