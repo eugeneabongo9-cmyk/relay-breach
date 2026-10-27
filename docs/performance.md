@@ -19,6 +19,8 @@ Machine: the container that built this slice. No discrete GPU was available, so 
 
 The 16.67 ms / 60 fps desktop target is still a target. These logic numbers only say the AI step is not the thing that would miss it. Remeasured after bodies stepped by the tick delta. The earlier capture on this same machine was median 175 µs, p95 227 µs, p99 348 µs. That gap is sample noise, not an optimization.
 
+The same 120-tick yard on GitHub-hosted ubuntu-24.04 ([run 40580439854](https://github.com/eugeneabongo9-cmyk/relay-breach/actions/runs/40580439854)) printed median 111 µs, p95 129 µs, p99 247 µs. That is still logic-only, and it is a different machine.
+
 No optimization was landed against a before/after capture. Enemies are a handful of bodies, not a pool. The stress room exists so that measurement can be repeated:
 
 1. Debug build, F6, or `start_stress()` as the test does.
