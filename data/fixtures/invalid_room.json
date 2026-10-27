@@ -1,0 +1,24 @@
+{
+  "version": 1,
+  "tether": {"range": 13.0, "pairs": [["bus", "door"]]},
+  "enemies": {"pursuer": {}},
+  "upgrades": [
+    {"id": "capacitor", "name": "A"},
+    {"id": "capacitor", "name": "duplicate"}
+  ],
+  "encounter_pool": ["missing_room"],
+  "rooms": {
+    "bad": {
+      "title": "Unsolvable",
+      "kind": "clear",
+      "player": [1, 1],
+      "exit": [2, 2],
+      "endpoints": [
+        {"id": "dup", "type": "bus", "at": [0, 0]},
+        {"id": "dup", "type": "door", "at": [40, 40]}
+      ],
+      "enemies": [{"id": "e", "archetype": "not_real", "at": [1, 1]}],
+      "obstacles": []
+    }
+  }
+}

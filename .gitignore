@@ -1,0 +1,9 @@
+.godot/
+build/
+exports/
+*.tmp
+*.translation
+.DS_Store
+*.apk
+*.aab
+user://

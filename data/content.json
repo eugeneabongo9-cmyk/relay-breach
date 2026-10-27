@@ -1,0 +1,202 @@
+{
+  "version": 1,
+  "tether": {
+    "range": 13.0,
+    "energy_cost": 18.0,
+    "sustain_per_sec": 7.0,
+    "max_duration": 6.0,
+    "cooldown": 1.15,
+    "los_required": true,
+    "pairs": [
+      ["shield_gen", "dump"],
+      ["bus", "coil"],
+      ["bus", "door"],
+      ["bus", "jammer"],
+      ["reactor", "extract"]
+    ]
+  },
+  "player": {
+    "max_health": 100,
+    "max_energy": 100,
+    "energy_regen": 12,
+    "move_speed": 7.4,
+    "accel": 52,
+    "friction": 40,
+    "evade_speed": 16,
+    "evade_time": 0.2,
+    "evade_iframes": 0.18,
+    "evade_cooldown": 0.9,
+    "shock_damage": 13,
+    "shock_range": 2.6,
+    "shock_cooldown": 0.4,
+    "shock_cost": 0
+  },
+  "enemies": {
+    "pursuer": {
+      "health": 66,
+      "speed": 4.7,
+      "melee": 2.15,
+      "telegraph": 0.5,
+      "attack": 0.28,
+      "recover": 0.48,
+      "damage": 18,
+      "perception": 18,
+      "stuck_time": 1.35,
+      "color": "#e25b48"
+    },
+    "sentinel": {
+      "health": 54,
+      "speed": 0,
+      "range": 13.5,
+      "telegraph": 0.64,
+      "attack": 0.18,
+      "recover": 0.7,
+      "damage": 13,
+      "perception": 15,
+      "projectile_speed": 11.5,
+      "color": "#f0b429"
+    },
+    "support": {
+      "health": 42,
+      "speed": 3.3,
+      "telegraph": 0.36,
+      "attack": 0.16,
+      "recover": 0.4,
+      "heal": 16,
+      "pulse_cd": 4.4,
+      "perception": 16,
+      "stuck_time": 1.5,
+      "color": "#6aa6ff"
+    }
+  },
+  "upgrades": [
+    {
+      "id": "capacitor",
+      "name": "Capacitor Well",
+      "desc": "+40 maximum energy. Longer links, more mistakes forgiven.",
+      "max_energy": 40
+    },
+    {
+      "id": "arc_lens",
+      "name": "Arc Lens",
+      "desc": "+4 m tether range. Makes awkward rooms honest.",
+      "range": 4
+    },
+    {
+      "id": "phase_step",
+      "name": "Phase Step",
+      "desc": "Evade cooldown reduced by 0.28 s.",
+      "evade_cd": -0.28
+    }
+  ],
+  "encounter_pool": ["shield", "coil", "support", "mixed"],
+  "rooms": {
+    "tutorial": {
+      "title": "Bay T-0  ·  Orientation",
+      "kind": "tutorial",
+      "player": [4, 13],
+      "exit": [23.2, 13],
+      "endpoints": [
+        {"id": "tut_bus", "type": "bus", "at": [14, 12]},
+        {"id": "tut_door", "type": "door", "at": [20, 13.5]},
+        {"id": "tut_dump", "type": "dump", "at": [6, 5]}
+      ],
+      "enemies": [],
+      "obstacles": []
+    },
+    "shield": {
+      "title": "Bay S-1  ·  Shield Bus",
+      "kind": "clear",
+      "player": [4, 14],
+      "exit": [23, 14],
+      "endpoints": [
+        {"id": "s_gen", "type": "shield_gen", "at": [11, 7]},
+        {"id": "s_dump", "type": "dump", "at": [17.5, 7]}
+      ],
+      "enemies": [
+        {"id": "s_sent", "archetype": "sentinel", "at": [18, 8], "shielded": true},
+        {"id": "s_pur", "archetype": "pursuer", "at": [15, 18]}
+      ],
+      "obstacles": [{"at": [12, 16], "size": [2.2, 1.6]}]
+    },
+    "coil": {
+      "title": "Bay C-2  ·  Hazard Coil",
+      "kind": "clear",
+      "player": [4, 16],
+      "exit": [23, 8],
+      "endpoints": [
+        {"id": "c_bus", "type": "bus", "at": [9, 10]},
+        {"id": "c_coil", "type": "coil", "at": [15, 12]}
+      ],
+      "enemies": [
+        {"id": "c_p1", "archetype": "pursuer", "at": [16, 8]},
+        {"id": "c_p2", "archetype": "pursuer", "at": [18, 17]}
+      ],
+      "obstacles": [{"at": [12, 15], "size": [3, 1.2]}]
+    },
+    "support": {
+      "title": "Bay U-3  ·  Warden",
+      "kind": "clear",
+      "player": [4, 13],
+      "exit": [23, 13],
+      "endpoints": [
+        {"id": "u_bus", "type": "bus", "at": [10, 19]},
+        {"id": "u_jam", "type": "jammer", "at": [16.5, 19]}
+      ],
+      "enemies": [
+        {"id": "u_sup", "archetype": "support", "at": [18, 9]},
+        {"id": "u_pur", "archetype": "pursuer", "at": [14, 15]}
+      ],
+      "obstacles": []
+    },
+    "mixed": {
+      "title": "Bay M-4  ·  Crossfeed",
+      "kind": "clear",
+      "player": [4, 18],
+      "exit": [23, 6],
+      "endpoints": [
+        {"id": "m_gen", "type": "shield_gen", "at": [10, 6]},
+        {"id": "m_dump", "type": "dump", "at": [16, 6]},
+        {"id": "m_bus", "type": "bus", "at": [8, 14]},
+        {"id": "m_coil", "type": "coil", "at": [14.5, 15]}
+      ],
+      "enemies": [
+        {"id": "m_sent", "archetype": "sentinel", "at": [19, 7], "shielded": true},
+        {"id": "m_pur", "archetype": "pursuer", "at": [13, 18]}
+      ],
+      "obstacles": [{"at": [18, 14], "size": [1.5, 2.4]}]
+    },
+    "finale": {
+      "title": "Core  ·  Extract",
+      "kind": "finale",
+      "player": [4, 13],
+      "exit": [22, 13],
+      "endpoints": [
+        {"id": "f_gen", "type": "shield_gen", "at": [12, 6]},
+        {"id": "f_dump", "type": "dump", "at": [18, 6]},
+        {"id": "f_bus", "type": "bus", "at": [8, 20]},
+        {"id": "f_jam", "type": "jammer", "at": [14, 20]},
+        {"id": "f_reactor", "type": "reactor", "at": [9, 13]},
+        {"id": "f_extract", "type": "extract", "at": [20.5, 13]}
+      ],
+      "enemies": [
+        {"id": "f_sent", "archetype": "sentinel", "at": [18.5, 8], "shielded": true},
+        {"id": "f_pur", "archetype": "pursuer", "at": [15, 17]},
+        {"id": "f_sup", "archetype": "support", "at": [20, 17]}
+      ],
+      "obstacles": [{"at": [13, 10], "size": [1.4, 1.4]}]
+    },
+    "stress": {
+      "title": "Stress yard",
+      "kind": "clear",
+      "player": [13, 13],
+      "exit": [23, 13],
+      "endpoints": [
+        {"id": "z_bus", "type": "bus", "at": [8, 8]},
+        {"id": "z_coil", "type": "coil", "at": [16, 16]}
+      ],
+      "enemies": [],
+      "obstacles": []
+    }
+  }
+}
